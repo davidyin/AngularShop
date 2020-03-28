@@ -1,0 +1,22 @@
+<div class="col-auto mb-3">
+  <div class="card bg-secondary" style="width: 18rem;">
+    <div class="card-header">
+      <i class="fa fa-lemon-o mr-1"></i> <b>{{ product.name }}</b>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">${{ product.price }}</h5>
+      <div class="card-text">
+        {{ product.description }}
+        <hr />
+      </div>
+      <div class="text-center">
+        <button (click)="purchase(product.id)" class="btn btn-primary mr-1">
+          Buy
+        </button>
+        <button [routerLink]="['/products', product.id]" class="btn btn-info">
+          Detail
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

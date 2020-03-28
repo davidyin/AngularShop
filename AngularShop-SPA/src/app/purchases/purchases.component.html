@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="btn-group">
+      <button
+        class="btn btn-primary mr-1"
+        [(ngModel)]="purchaseContainer"
+        btnRadio=""
+        (click)="loadPurchases()"
+      >
+        <i class="fa fa-envelope"></i> Processing
+      </button>
+      <button
+        class="btn btn-primary"
+        [(ngModel)]="purchaseContainer"
+        btnRadio="Cancelled"
+        (click)="loadPurchases()"
+      >
+        <i class="fa fa-envelope-open"></i> Cancelled
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="purchases.length == 0">
+    <h3>No purchases</h3>
+  </div>
+
+  <div class="row" *ngIf="purchases.length > 0">
+    <table class="table table-hover" style="cursor: pointer">
+      <tr>
+        <th style="width: 40%">Product Name</th>
+        <th style="width: 20%">Price</th>
+        <th style="width: 20%">Created</th>
+        <th style="width: 20%">Status</th>
+        <th style="width: 20%"></th>
+      </tr>
+      <tr
+        *ngFor="let purchase of purchases"
+        [routerLink]="['/product', purchase.productId]"
+        [queryParams]="{ tab: 3 }"
+      >
+        <td>{{ purchase.product.name }}</td>
+        <td>${{ purchase.product.price }}</td>
+
+        <td>{{ purchase.dateAdded | timeago }}</td>
+        <td>{{ purchase.isCancelled }}</td>
+        <td>
+          <button
+            class="btn btn-danger"
+            (click)="$event.stopPropagation()"
+            (click)="cancelPurchase(purchase.id)"
+          >
+            Cancel
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

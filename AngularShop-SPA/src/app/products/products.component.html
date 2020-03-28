@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <form
+    class="form-inline"
+    #form="ngForm"
+    (ngSubmit)="loadProducts()"
+    novalidate
+  >
+    <div class="col">
+      <div class="btn-group float-right">
+        <button
+          class="btn btn-primary  mr-1"
+          [(ngModel)]="productParams.orderBy"
+          type="button"
+          name="orderBy"
+          btnRadio="priceasc"
+          (click)="loadProducts()"
+        >
+          Price: LOW->HIGH
+        </button>
+        <button
+          class="btn btn-primary"
+          [(ngModel)]="productParams.orderBy"
+          type="button"
+          name="orderBy"
+          btnRadio="price"
+          (click)="loadProducts()"
+        >
+          Price: HIGH-> LOW
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <br />
+  <div class="row mt-4">
+    <div class="row justify-content-center">
+      <div *ngFor="let product of products">
+        <app-product-card [product]="product"> </app-product-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</div>
