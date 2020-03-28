@@ -23,12 +23,13 @@ export class ProductCardComponent implements OnInit {
       .purchase(this.authService.decodedToken.nameid, id)
       .subscribe(
         () => {
-          this.alertify.success("Purchase has been created ");
+          this.alertify.success(
+            "Purchase " + this.product.name + " successfully!"
+          );
         },
         error => {
           this.alertify.error("Failed to create the purchase");
         }
       );
-    //this.alertify.success("Purchase " + this.product.name + " successfully!");
   }
 }
