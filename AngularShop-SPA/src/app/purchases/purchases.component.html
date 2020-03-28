@@ -30,21 +30,16 @@
         <th style="width: 40%">Product Name</th>
         <th style="width: 20%">Price</th>
         <th style="width: 20%">Created</th>
-        <th style="width: 20%">Status</th>
         <th style="width: 20%"></th>
       </tr>
-      <tr
-        *ngFor="let purchase of purchases"
-        [routerLink]="['/product', purchase.productId]"
-        [queryParams]="{ tab: 3 }"
-      >
+      <tr *ngFor="let purchase of purchases">
         <td>{{ purchase.product.name }}</td>
         <td>${{ purchase.product.price }}</td>
 
         <td>{{ purchase.dateAdded | timeago }}</td>
-        <td>{{ purchase.isCancelled }}</td>
         <td>
           <button
+            *ngIf="!purchase.isCancelled"
             class="btn btn-danger"
             (click)="$event.stopPropagation()"
             (click)="cancelPurchase(purchase.id)"
